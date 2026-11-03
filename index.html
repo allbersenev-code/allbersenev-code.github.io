@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Берсенёв Алексей — клиенты, а не клики</title>
+<meta name="description" content="Настраиваю таргетированную рекламу так, чтобы каждый рубль бюджета работал на заявки.">
+
+<!-- Favicon & Web App Icons -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- Open Graph (Микроразметка) -->
+<meta property="og:title" content="Берсенёв Алексей — клиенты, а не клики">
+<meta property="og:description" content="Таргетированная реклама. Считаю не охваты, а стоимость клиента и окупаемость.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://albersenev.ru/">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Берсенёв Алексей",
+  "description": "Специалист по таргетированной рекламе",
+  "address": { "@type": "PostalAddress", "addressLocality": "Чебоксары", "addressCountry": "RU" }
+}
+</script>
+
+<!-- Предзагрузка шрифтов для LCP -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Inter:wght@400;500;600&display=swap" as="style">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- 1. АНАЛИТИКА (Яндекс.Метрика и VK Pixel) -->
+<script type="text/javascript">
+  // Пример инициализации Яндекс.Метрики (замените 99999999 на ваш номер)
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  ym(99999999, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+  
+  // Пример инициализации VK Pixel (замените VK-RTRG-XXXX-XXXX на ваш ID)
+  !function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://vk.com/js/api/openapi.js?169",t.onload=function(){VK.Retargeting.Init("VK-RTRG-XXXX-XXXX"),VK.Retargeting.Hit()},document.head.appendChild(t)}();
+</script>
+
+<style>
+:root { --bg: #f6f5fb; --surf: #ffffff; --ink: #14122b; --mut: #6b6885; --line: #e4e2f0; --acc: #ff6b00; --acc2: #ffa866; --glow: rgba(255, 107, 0, 0.14); color-scheme: light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0a0a0a; --surf: #141414; --ink: #f1f0fb; --mut: #9b98b8; --line: #2a2848; --acc: #ff6b00; --acc2: #cc5500; --glow: rgba(255, 107, 0, 0.18); color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #0a0a0a; --surf: #141414; --ink: #f1f0fb; --mut: #9b98b8; --line: #2a2848; --acc: #ff6b00; --acc2: #cc5500; --glow: rgba(255, 107, 0, 0.18); color-scheme: dark; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 Inter, sans-serif; overflow-x: hidden; }
+h1, h2, h3, .num { font-family: Unbounded, sans-serif; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+/* 3. КАСТОМНЫЙ СКРОЛЛБАР И ВЫДЕЛЕНИЕ ТЕКСТА */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--mut); border-radius: 4px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--acc); }
+::selection { background: var(--acc); color: #fff; }
+
+header { position: sticky; top: 0; z-index: 9; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+.logo { display: flex; align-items: center; gap: 10px; font: 700 15px Unbounded, sans-serif; }
+.logo i { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--acc); display: grid; place-items: center; }
+.logo i::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--acc); }
+nav { display: flex; gap: 22px; font-size: 14px; color: var(--mut); }
+nav a:hover { color: var(--acc); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 22px; border-radius: 99px; background: var(--acc); color: #fff; font-weight: 600; font-size: 15px; border: 0; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px var(--glow); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.tg { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: color-mix(in srgb, var(--surf) 70%, transparent); backdrop-filter: blur(8px); color: var(--ink); cursor: pointer; font-size: 16px; }
+
+.hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 30px; align-items: center; padding: 64px 0 40px; }
+.tag { display: inline-block; padding: 6px 14px; border: 1px solid var(--line); border-radius: 99px; font-size: 13px; color: var(--mut); background: color-mix(in srgb, var(--surf) 60%, transparent); backdrop-filter: blur(12px); margin-bottom: 22px; }
+.tag b { color: var(--acc); }
+h1 { font-size: clamp(32px, 5.4vw, 56px); }
+h1 em { font-style: normal; color: var(--acc); position: relative; white-space: nowrap; }
+h1 em::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 6px; background: var(--acc2); opacity: .45; border-radius: 4px; transform: scaleX(0); transform-origin: left; animation: ul 1s .6s forwards; }
+@keyframes ul { to { transform: scaleX(1); } }
+.lead { margin: 22px 0 30px; color: var(--mut); max-width: 480px; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; }
+.target { position: relative; aspect-ratio: 1; max-width: 420px; margin-inline: auto; width: 100%; }
+.target svg { width: 100%; height: 100%; overflow: visible; }
+.target .ring { fill: none; stroke: var(--acc); transform-origin: 200px 200px; animation: pulse 4s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(1.04); opacity: .5; } }
+.target circle[fill="var(--glow)"] { filter: drop-shadow(0 0 15px var(--acc)); }
+.chip { position: absolute; padding: 10px 14px; border-radius: 14px; background: color-mix(in srgb, var(--surf) 70%, transparent); backdrop-filter: blur(8px); border: 1px solid var(--line); box-shadow: 0 12px 30px var(--glow); font-size: 13px; animation: fl 5s ease-in-out infinite; }
+.chip b { display: block; font: 700 18px Unbounded, sans-serif; color: var(--acc); }
+.c1 { top: 6%; right: -2%; } .c2 { bottom: 14%; left: -4%; animation-delay: -2s; } .c3 { bottom: -2%; right: 8%; animation-delay: -3.5s; }
+@keyframes fl { 50% { transform: translateY(-10px); } }
+
+.mq { border-block: 1px solid var(--line); overflow: hidden; padding: 16px 0; margin: 30px 0 0; background: color-mix(in srgb, var(--surf) 50%, transparent); backdrop-filter: blur(5px); }
+.mq div { display: flex; gap: 44px; width: max-content; animation: mq 20s linear infinite; font: 500 15px Unbounded, sans-serif; color: var(--mut); white-space: nowrap; }
+.mq span::before { content: "◎"; color: var(--acc); margin-right: 44px; }
+@keyframes mq { to { transform: translateX(-50%); } }
+
+section { padding: 84px 0 0; }
+h2 { font-size: clamp(26px, 4vw, 40px); margin-bottom: 12px; }
+.sub { color: var(--mut); max-width: 520px; margin-bottom: 36px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+/* Безопасный Spotlight Effect */
+.card, .price-card {
+  --mouse-x: 50%; --mouse-y: 50%;
+  background: color-mix(in srgb, var(--surf) 80%, transparent);
+  backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 22px; padding: 26px;
+  position: relative; overflow: hidden; transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+.card::before, .price-card::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(255,107,0,0.08), transparent 40%);
+  opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+}
+.card:hover::before, .price-card:hover::before { opacity: 1; }
+.card > *, .price-card > * { position: relative; z-index: 1; }
+.card:hover { transform: translateY(-5px); border-color: var(--acc); box-shadow: 0 18px 40px var(--glow), inset 0 0 30px var(--glow); }
+
+.num { font-size: clamp(28px, 4vw, 40px); color: var(--acc); }
+.stats p { color: var(--mut); font-size: 14px; margin-top: 8px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.ico { width: 46px; height: 46px; border-radius: 14px; background: var(--glow); display: grid; place-items: center; font-size: 20px; margin-bottom: 18px; }
+.card h3 { font-size: 18px; margin-bottom: 10px; }
+.card p { color: var(--mut); font-size: 15px; }
+
+/* Визуализация кейсов */
+.cases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.case { display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
+.case::after { content: ""; position: absolute; right: -60px; top: -60px; width: 170px; height: 170px; border-radius: 50%; border: 26px solid var(--glow); transition: transform .5s; z-index: 0; }
+.case:hover::after { transform: scale(1.35); }
+.case-chart { display: flex; align-items: flex-end; gap: 4px; height: 30px; margin-bottom: -10px; }
+.case-bar { width: 8px; background: var(--acc); border-radius: 4px; animation: growBar 1s ease-out forwards; transform-origin: bottom; transform: scaleY(0); opacity: 0.8; }
+.case-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+.case-bar:nth-child(2) { height: 60%; animation-delay: 0.2s; }
+.case-bar:nth-child(3) { height: 80%; animation-delay: 0.3s; }
+.case-bar:nth-child(4) { height: 100%; animation-delay: 0.4s; }
+@keyframes growBar { to { transform: scaleY(1); } }
+.badge { display: inline-flex; background: color-mix(in srgb, var(--acc) 15%, transparent); color: var(--acc); padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; width: max-content; }
+
+.case small { color: var(--mut); font-size: 13px; }
+.case .num { font-size: clamp(34px, 5vw, 52px); }
+.mini { display: flex; gap: 18px; border-top: 1px dashed var(--line); padding-top: 14px; font-size: 13px; color: var(--mut); }
+.mini b { display: block; color: var(--ink); font-size: 16px; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; counter-reset: s; }
+.steps .card::before { counter-increment: s; content: "0" counter(s); font: 700 13px Unbounded, sans-serif; color: var(--acc); display: block; margin-bottom: 14px; z-index: 1; position: relative; }
+
+/* Тарифы */
+.pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: start; }
+.price-card { display: flex; flex-direction: column; height: 100%; }
+@keyframes pulse-card { 0%, 100% { box-shadow: 0 18px 40px var(--glow), inset 0 0 20px var(--glow), 0 0 0 0 rgba(255, 107, 0, 0.4); } 70% { box-shadow: 0 18px 40px var(--glow), inset 0 0 20px var(--glow), 0 0 0 12px rgba(255, 107, 0, 0); } }
+.price-card.featured { border-color: var(--acc); animation: pulse-card 2.5s infinite; transform: translateY(-10px); }
+.price-card.featured:hover { animation: none; transform: translateY(-15px); box-shadow: 0 25px 50px var(--glow), inset 0 0 25px var(--glow); }
+.price-card h3 { font-size: 22px; margin-bottom: 8px; }
+.price-card .price { font: 700 32px Unbounded, sans-serif; color: var(--acc); margin-bottom: 20px; }
+.price-card ul { list-style: none; padding: 0; margin: 0 0 24px; flex-grow: 1; }
+.price-card ul li { position: relative; padding-left: 24px; margin-bottom: 12px; color: var(--mut); font-size: 14px; }
+.price-card ul li::before { content: "✓"; position: absolute; left: 0; color: var(--acc); font-weight: bold; }
+.price-card .btn { width: 100%; justify-content: center; }
+
+/* FAQ */
+.faq { display: flex; flex-direction: column; gap: 14px; }
+.faq details { background: color-mix(in srgb, var(--surf) 80%, transparent); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; transition: background 0.3s, border-color 0.3s; }
+.faq details[open] { border-color: var(--acc); background: color-mix(in srgb, var(--surf) 90%, transparent); }
+.faq summary { padding: 24px; font: 600 16px Inter, sans-serif; color: var(--ink); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 28px; color: var(--acc); transition: transform 0.3s; line-height: 0.8; font-weight: 300; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .faq-content { padding: 0 24px 24px; color: var(--mut); font-size: 15px; line-height: 1.6; }
+
+/* Блок призыва */
+.cta { margin-top: 84px; background: var(--ink); color: var(--bg); border-radius: 32px; padding: clamp(30px, 6vw, 64px); position: relative; overflow: hidden; }
+.cta::before, .cta::after { content: ""; position: absolute; border-radius: 50%; border: 1px solid var(--acc); right: -120px; top: 50%; translate: 0 -50%; }
+.cta::before { width: 420px; height: 420px; opacity: .5; } .cta::after { width: 260px; height: 260px; }
+.cta .sub { color: inherit; opacity: .7; }
+.cta .row { position: relative; z-index: 1; }
+.cta .btn.ghost { color: var(--bg); border-color: rgba(128,128,160,.5); }
+
+/* 2. РЕКВИЗИТЫ В ФУТЕРЕ (Для модерации) */
+footer { padding: 36px 0; color: var(--mut); font-size: 13px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--line); margin-top: 40px; }
+.footer-legal { text-align: right; line-height: 1.4; opacity: 0.8; }
+
+/* Всплывающие окна (Теперь жестко display: none по умолчанию) */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; }
+.modal-overlay.active { display: flex; animation: fadeInModal 0.3s ease; }
+@keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+.modal-content { background: var(--surf); border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(0,0,0,0.2); border-radius: 20px; padding: 40px; max-width: 520px; width: 92%; position: relative; }
+.close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 28px; color: var(--mut); cursor: pointer; transition: 0.2s; z-index: 10; }
+.close-btn:hover { color: var(--acc); }
+
+/* 4. МИКРОАНИМАЦИЯ ОШИБОК (Shake) */
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+.shake { animation: shake 0.4s ease-in-out; border-color: #ff4444 !important; }
+
+/* Квиз элементы */
+.quiz-step { display: none; }
+.quiz-step.active { display: block; animation: slideIn 0.3s ease; }
+@keyframes slideIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+.quiz-progress { height: 4px; background: var(--line); border-radius: 4px; margin-bottom: 24px; overflow: hidden; }
+.quiz-bar { height: 100%; background: var(--acc); width: 33%; transition: width 0.3s ease; box-shadow: 0 0 12px var(--acc); }
+.quiz-step-counter { font-size: 13px; color: var(--mut); margin-bottom: 10px; font-weight: 500; }
+.quiz-title { font-size: 22px; font-weight: 700; margin-bottom: 24px; color: var(--ink); line-height: 1.2; }
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-opt { padding: 16px 20px; background: transparent; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); cursor: pointer; transition: 0.2s; text-align: left; font-size: 15px; font-weight: 500; }
+.quiz-opt:hover { background: var(--glow); border-color: var(--acc); }
+.quiz-opt:active { transform: scale(0.97); }
+.quiz-input { width: 100%; padding: 16px 20px; background: transparent; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); font-size: 15px; margin-bottom: 12px; outline: none; transition: border-color 0.2s; }
+.quiz-input:focus { border-color: var(--acc); }
+.quiz-radio-group { display: flex; gap: 10px; margin: 0 0 24px; flex-wrap: wrap; }
+.quiz-radio-label { display: block; width: 100%; font-size: 14px; color: var(--mut); margin-bottom: 8px; }
+.quiz-radio-btn { flex: 1; text-align: center; padding: 12px 10px; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--ink); transition: 0.2s; background: transparent; }
+.quiz-radio-btn.selected { background: var(--acc); color: #fff; border-color: var(--acc); }
+.quiz-radio-btn:active { transform: scale(0.97); }
+.quiz-checkbox { display: flex; align-items: flex-start; gap: 12px; font-size: 12px; color: var(--mut); cursor: pointer; text-align: left; margin-top: 16px; line-height: 1.4; user-select: none; transition: 0.2s; padding: 4px; border: 1px solid transparent; border-radius: 8px;}
+.quiz-checkbox input { margin-top: 2px; accent-color: var(--acc); width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; }
+.quiz-checkbox a { color: var(--mut); text-decoration: underline; transition: color 0.2s; }
+.quiz-checkbox a:hover { color: var(--acc); }
+.quiz-back { background: none; border: none; color: var(--mut); font-size: 14px; cursor: pointer; margin-top: 20px; padding: 5px 0; transition: color 0.2s; display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
+.quiz-back:hover { color: var(--ink); }
+.quiz-error { color: #ff4444; font-size: 13px; margin-top: 10px; display: none; }
+.bonus-text { font-size: 13px; color: var(--acc); font-weight: 500; margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; }
+
+/* Honeypot field (hidden from users, traps bots) */
+.gotcha { opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1; pointer-events: none; }
+
+/* Cookie Banner (Тоже display: none) */
+.cookie-banner { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 16px 24px; border-radius: 16px; display: none; align-items: center; gap: 20px; z-index: 9999; width: max-content; max-width: 90%; font-size: 13px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.cookie-banner.show { display: flex; animation: slideUpCookie 0.5s ease; }
+@keyframes slideUpCookie { from { bottom: -100px; } to { bottom: 24px; } }
+.cookie-banner button { background: var(--acc); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; white-space: nowrap; transition: 0.2s; }
+.cookie-banner button:hover { transform: scale(1.05); }
+
+/* Брендовые градиенты мессенджеров */
+.phones-group { display: flex; justify-content: center; align-items: center; gap: 0; margin: 60px auto 20px; perspective: 1200px; height: 320px; }
+.phone-btn { width: 150px; height: 300px; border-radius: 28px; background: color-mix(in srgb, var(--surf) 85%, transparent); backdrop-filter: blur(12px); border: 2px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--ink); text-decoration: none; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s, box-shadow 0.3s, z-index 0s; box-shadow: 0 15px 35px rgba(0,0,0,0.05); position: relative; overflow: hidden; z-index: 1; }
+.phone-btn::before { content: ""; position: absolute; top: 12px; left: 50%; translate: -50% 0; width: 44px; height: 6px; border-radius: 99px; background: var(--line); z-index: 2;}
+.phone-btn::after { content: ""; position: absolute; inset: 0; opacity: 0.3; transition: opacity 0.5s, transform 0.5s; z-index: -1; transform: scale(1); }
+.vk-glow::after { background: radial-gradient(circle at center, rgba(39, 135, 245, 0.4) 0%, transparent 65%); }
+.tg-glow::after { background: radial-gradient(circle at center, rgba(42, 171, 238, 0.4) 0%, transparent 65%); }
+.max-glow::after { background: radial-gradient(circle at center, rgba(255, 107, 0, 0.4) 0%, transparent 65%); }
+.phone-btn:hover::after { opacity: 1; transform: scale(1.3); }
+
+.phone-btn:nth-child(2) { transform: translateY(-20px) translateZ(30px); z-index: 3; border-color: var(--acc); background: var(--bg); box-shadow: 0 25px 50px var(--glow); }
+.phone-btn:nth-child(1) { transform: translateX(50px) rotate(-12deg) translateY(20px) translateZ(0); z-index: 1; transform-origin: bottom right; }
+.phone-btn:nth-child(3) { transform: translateX(-50px) rotate(12deg) translateY(20px) translateZ(0); z-index: 2; transform-origin: bottom left; }
+.phones-group:hover .phone-btn:nth-child(1) { transform: translateX(-15px) rotate(-6deg) translateY(0); }
+.phones-group:hover .phone-btn:nth-child(3) { transform: translateX(15px) rotate(6deg) translateY(0); }
+.phone-btn:hover { transform: translateY(-35px) scale(1.08) translateZ(50px) !important; z-index: 10 !important; border-color: var(--acc); box-shadow: 0 30px 60px var(--glow); }
+.phone-btn svg { width: 42px; height: 42px; margin-bottom: 20px; fill: currentColor; position: relative; z-index: 2;}
+.phone-btn span { font: 700 15px Unbounded, sans-serif; color: var(--ink); position: relative; z-index: 2;}
+.phone-btn small { display: block; font-size: 12px; color: var(--mut); margin-top: 8px; position: relative; z-index: 2;}
+
+.fab { position: fixed; bottom: 20px; right: 20px; width: 54px; height: 54px; background: var(--acc); border-radius: 50%; display: none; place-items: center; z-index: 99; box-shadow: 0 10px 24px var(--glow); color: #fff; transition: transform 0.2s; }
+.fab:hover { transform: scale(1.1); }
+.fab svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+@media(max-width: 600px) {
+    .phones-group { height: auto; flex-direction: column; gap: 12px; margin: 30px auto 10px; }
+    .phone-btn, .phone-btn:nth-child(1), .phone-btn:nth-child(2), .phone-btn:nth-child(3),
+    .phones-group:hover .phone-btn:nth-child(1), .phones-group:hover .phone-btn:nth-child(3) { width: 100%; height: 72px; flex-direction: row; gap: 16px; transform: none !important; border-radius: 20px; justify-content: flex-start; padding: 0 24px; }
+    .phone-btn:hover { transform: translateY(-4px) !important; z-index: 1!important; }
+    .phone-btn::before { display: none; }
+    .phone-btn::after { opacity: 0.15; transform: scale(1.5) translateX(-20px); }
+    .phone-btn svg { margin-bottom: 0; width: 28px; height: 28px; }
+    .phone-btn small { display: inline-block; margin-top: 0; margin-left: auto; }
+    .cookie-banner { flex-direction: column; text-align: center; gap: 12px; }
+    .cookie-banner button { width: 100%; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-legal { text-align: center; }
+}
+@media(max-width:820px) { nav{display:none} .hero{grid-template-columns:1fr;padding-top:36px} .stats,.steps{grid-template-columns:1fr 1fr} .grid3,.cases,.pricing{grid-template-columns:1fr} .price-card.featured{transform:none} .price-card.featured:hover{transform:translateY(-5px)} .c2{left:0} .c1{right:0} .fab{display:grid} }
+@media(prefers-reduced-motion:reduce) { *{animation:none!important;transition:none!important} }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="#top"><i></i>Берсенёв Алексей</a>
+  <nav><a href="#about">Принципы</a><a href="#services">Услуги</a><a href="#cases">Кейсы</a><a href="#process">Процесс</a></nav>
+  <div class="row" style="flex-wrap:nowrap;gap:8px"><button class="tg" id="th" aria-label="Тема">◐</button><a class="btn" onclick="window.openQuiz()" style="padding:10px 18px">Написать</a></div>
+</div></header>
+
+<main id="top">
+<div class="wrap hero">
+  <div>
+    <span class="tag">Таргетированная реклама · <b>прозрачно и по цифрам</b></span>
+    <h1>Привожу <em>клиентов</em>, а не просто клики</h1>
+    <p class="lead">Настраиваю рекламу так, чтобы каждый рубль бюджета работал на заявки. Считаю не охваты, а стоимость клиента и окупаемость.</p>
+    <div class="row" style="flex-direction: column; align-items: flex-start;">
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <button class="btn" onclick="window.openQuiz()">Обсудить проект →</button>
+        <a class="btn ghost" href="#cases">Смотреть кейсы</a>
+      </div>
+      <div class="bonus-text">🎁 + Бонус: чек-лист по подготовке к рекламе</div>
+    </div>
+  </div>
+  <div class="target" id="tg">
+    <svg viewBox="0 0 400 400" aria-hidden="true">
+      <circle class="ring" cx="200" cy="200" r="190" stroke-width="1" stroke-dasharray="3 8"/>
+      <circle class="ring" cx="200" cy="200" r="145" stroke-width="1.5" style="animation-delay:-1s"/>
+      <circle class="ring" cx="200" cy="200" r="100" stroke-width="2" style="animation-delay:-2s"/>
+      <circle cx="200" cy="200" r="56" fill="var(--glow)" stroke="var(--acc)" stroke-width="2"/>
+      <circle cx="200" cy="200" r="16" fill="var(--acc)"/>
+      <g id="cross" stroke="var(--acc)" stroke-width="1.5"><path d="M200 150v-30M200 250v30M150 200h-30M250 200h30"/></g>
+    </svg>
+    <div class="chip c1">Фокус<b>Заявки</b></div>
+    <div class="chip c2">Подход<b>Аналитика</b></div>
+    <div class="chip c3">Отчёты<b>Каждую неделю</b></div>
+  </div>
+</div>
+<div class="mq"><div>
+    <span>VK Ads</span><span>Яндекс Директ</span><span>Marquiz</span><span>Авито.Ads</span>
+    <span>VK Ads</span><span>Яндекс Директ</span><span>Marquiz</span><span>Авито.Ads</span>
+    <span>VK Ads</span><span>Яндекс Директ</span><span>Marquiz</span><span>Авито.Ads</span>
+    <span>VK Ads</span><span>Яндекс Директ</span><span>Marquiz</span><span>Авито.Ads</span>
+</div></div>
+
+<section id="about"><div class="wrap">
+  <h2>Принципы работы</h2><p class="sub">Беру не громкими словами, а внимательностью к цифрам и вашему проекту.</p>
+  <div class="stats">
+    <div class="card"><div class="num">01</div><p><b>Заявки, а не клики.</b> Смотрю на стоимость клиента, а не на охваты.</p></div>
+    <div class="card"><div class="num">02</div><p><b>Тесты вместо догадок.</b> Проверяю аудитории и креативы на небольшом бюджете.</p></div>
+    <div class="card"><div class="num">03</div><p><b>Понятные отчёты.</b> Каждую неделю показываю, куда ушли деньги и что дало результат.</p></div>
+    <div class="card"><div class="num">04</div><p><b>Честный разговор.</b> Говорю, что реально, а что нет, ещё до запуска.</p></div>
+  </div>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <h2>Чем занимаюсь</h2><p class="sub">Берусь за задачу целиком: от стратегии до отчёта.</p>
+  <div class="grid3">
+    <div class="card"><div class="ico">🎯</div><h3>Настройка с нуля</h3><p>Анализ ниши и аудиторий, креативы, тесты связок, запуск кампаний под вашу цель.</p></div>
+    <div class="card"><div class="ico">📈</div><h3>Ведение и оптимизация</h3><p>Ежедневный контроль цены заявки, масштабирование рабочих связок, отключение слабых.</p></div>
+    <div class="card"><div class="ico">🧭</div><h3>Аудит рекламы</h3><p>Найду, где сливается бюджет, и дам понятный план исправлений.</p></div>
+  </div>
+</div></section>
+
+<section id="cases"><div class="wrap">
+  <h2>Кейсы</h2><p class="sub">Некоторые цифры по проектам.</p>
+  <div class="cases">
+    <article class="card case">
+        <div class="badge">ВКонтакте</div>
+        <small>Кухни на заказ</small>
+        <div class="case-chart">
+          <div class="case-bar"></div><div class="case-bar"></div><div class="case-bar"></div><div class="case-bar"></div>
+        </div>
+        <h3><span class="num" data-n="25">25</span> клиентов</h3>
+        <p>Стоимость заявки 1873 ₽ за 1 месяц работы.</p>
+    </article>
+    <article class="card case">
+        <div class="badge">Яндекс Директ</div>
+        <small>Йога-студия (Бор)</small>
+        <div class="case-chart">
+          <div class="case-bar"></div><div class="case-bar"></div><div class="case-bar"></div><div class="case-bar"></div>
+        </div>
+        <h3><span class="num" data-n="19">19</span> лидов на старте</h3>
+        <p>Цена заявки всего 429 ₽, продажи на 23 000 ₽ в первые 3 недели.</p>
+    </article>
+  </div>
+</div></section>
+
+<section id="process"><div class="wrap">
+  <h2>Как работаем</h2><p class="sub">Прозрачно, по шагам, без сюрпризов.</p>
+  <div class="steps">
+    <div class="card"><h3>Бриф</h3><p>Созвон на 20 минут: цели, продукт, бюджет.</p></div>
+    <div class="card"><h3>Стратегия</h3><p>Аудитории, офферы, план тестов.</p></div>
+    <div class="card"><h3>Запуск</h3><p>Креативы, кампании, аналитика.</p></div>
+    <div class="card"><h3>Рост</h3><p>Оптимизация и еженедельные отчёты.</p></div>
+  </div>
+</div></section>
+
+<section id="pricing"><div class="wrap">
+  <h2>Тарифы</h2><p class="sub">Подберу оптимальный формат работы под ваши задачи и бюджет.</p>
+  <div class="pricing">
+    <div class="card price-card">
+      <h3>Тестовый запуск</h3>
+      <div class="price" style="font-size: 26px;">15 000 ₽ <span style="font-size: 14px; font-weight: 500; color: var(--mut);">/ неделя</span></div>
+      <ul>
+        <li>Анализ конкурентов и вашего продукта</li>
+        <li>Написание текстов и создание баннеров</li>
+        <li>Настройка и запуск 3-5 кампаний</li>
+        <li>Открутка тестового бюджета (5-7 дней)</li>
+        <li>Понятный отчёт и план на месяц</li>
+      </ul>
+      <button class="btn ghost" onclick="window.openQuiz()">Выбрать</button>
+    </div>
+    <div class="card price-card featured">
+      <h3>Ведение (Хит)</h3>
+      <div class="price" style="font-size: 26px;">35 000 ₽ <span style="font-size: 14px; font-weight: 500; color: var(--mut);">/ месяц</span></div>
+      <ul>
+        <li>Всё, что входит в тестовый запуск</li>
+        <li>Ежедневный контроль цены заявки</li>
+        <li>Масштабирование удачных объявлений</li>
+        <li>Настройка ретаргетинга (догоняем ушедших)</li>
+        <li>Еженедельный отчёт с цифрами и выводами</li>
+      </ul>
+      <button class="btn" onclick="window.openQuiz()">Выбрать</button>
+    </div>
+    <div class="card price-card">
+      <h3>Трафик-система</h3>
+      <div class="price" style="font-size: 26px;">от 60 000 ₽ <span style="font-size: 14px; font-weight: 500; color: var(--mut);">/ месяц</span></div>
+      <ul>
+        <li>Работа в 2 каналах (Яндекс + ВК/Авито)</li>
+        <li>Связка рекламы с вашей CRM и метрикой</li>
+        <li>Создание квизов и лендингов под трафик</li>
+        <li>Постоянное тестирование новых гипотез</li>
+        <li>Стратегические созвоны раз в неделю</li>
+      </ul>
+      <button class="btn ghost" onclick="window.openQuiz()">Выбрать</button>
+    </div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <h2>Частые вопросы</h2><p class="sub">Отвечаю на то, о чём спрашивают чаще всего перед стартом работы.</p>
+  <div class="faq">
+    <details>
+      <summary>Какой рекламный бюджет нужен для старта?</summary>
+      <div class="faq-content">Для первого запуска (теста) я рекомендую закладывать от 15 000 до 30 000 рублей. Эти деньги идут напрямую в рекламный кабинет (VK или Яндекс). За 5-7 дней мы проверим гипотезы, поймем реальную стоимость заявки и решим, как масштабироваться дальше.</div>
+    </details>
+    <details>
+      <summary>Вы даёте гарантии на количество заявок?</summary>
+      <div class="faq-content">До проведения тестов точную цифру назвать невозможно — это зависит от спроса, сезона и вашего предложения. Моя гарантия: я не солью бюджет впустую, протестирую минимум 5 связок и после теста назову точные цифры (KPI), за которые буду нести ответственность.</div>
+    </details>
+    <details>
+      <summary>Как быстро мы сможем запуститься?</summary>
+      <div class="faq-content">Обычно с момента заполнения брифа до старта первых показов проходит 3–4 дня. За это время я изучаю конкурентов, пишу рекламные тексты, собираю аудитории и настраиваю аналитику.</div>
+    </details>
+    <details>
+      <summary>Что, если заявки будут, но дорогие?</summary>
+      <div class="faq-content">В процессе ведения я ежедневно отслеживаю статистику. Если цена лида выходит за рамки рентабельности, я отключаю неэффективные кампании, меняю креативы (баннеры и тексты) или предлагаю скорректировать предложение на самом сайте/квизе.</div>
+    </details>
+  </div>
+</div></section>
+
+<section id="contacts"><div class="wrap">
+  <div class="cta">
+    <h2 style="text-align: center;">Давайте запустим рекламу, которая окупается</h2>
+    <p class="sub" style="text-align: center; margin: 0 auto;">Напишите пару слов о проекте — отвечу в течение дня и предложу первые шаги.</p>
+    
+    <div class="phones-group">
+      <a href="https://vk.me/al.bersenev" class="phone-btn vk-glow">
+        <svg viewBox="0 0 24 24"><path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14C20.67 22 22 20.67 22 15.07V8.93C22 3.33 20.67 2 15.07 2Zm3.44 14.86c-.2.66-1.12.75-1.12.75h-1.5c-.7 0-1.04-.38-1.24-.78 0 0-.64-1.55-1.5-2.58-.6-.73-.88-.93-1.15-.93-.13 0-.32.08-.32.96v2.21c0 .48-.15.7-.58.7h-1.04c-1.38 0-2.92-1.03-4-2.57-2.12-2.97-3.13-6.52-3.13-6.52 0-.37.13-.67.7-.67h1.56c.46 0 .66.23.82.52 0 0 1.25 3.01 3.02 5.07.5.58.73.76.98.76.13 0 .27-.08.27-.47v-3.77c-.08-.94-.56-1.03-.56-1.38 0-.17.14-.33.37-.33h2.38c.4 0 .54.21.54.67v4.06c0 .54.24.66.45.66.3 0 .64-.23 1.34-1.02 1.05-1.34 1.76-3.41 1.76-3.41.13-.3.4-.52.88-.52h1.5c.61 0 .76.31.67.72-.25 1.15-1.74 3.4-2.45 4.3-.54.66-.69.87-.14 1.63.53.74 1.61 2.05 1.83 2.72Z"/></svg>
+        <span>ВКонтакте</span>
+        <small>Перейти</small>
+      </a>
+      <a href="https://t.me/albersenev?text=Алексей,%20здравствуйте!%20Пишу%20с%20сайта,%20хочу%20обсудить%20проект." class="phone-btn tg-glow">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.53-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.38-.48 1.04-.73 4.08-1.78 6.8-2.92 8.16-3.49 3.88-1.62 4.69-1.9 5.22-1.91.12 0 .38.03.53.15.12.1.17.25.18.36 0 .05.01.16-.01.32Z"/></svg>
+        <span>Telegram</span>
+        <small>Написать</small>
+      </a>
+      <a href="https://max.ru/u/f9LHodD0cOJycjbjSnE-WCrKnfu_CnSY2MMYqSbXk2b7TVy27W6bDRp5l1Y" class="phone-btn max-glow">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg>
+        <span>MAX</span>
+        <small>Профиль</small>
+      </a>
+    </div>
+  </div>
+  
+  <footer>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <span>© 2026 Берсенёв Алексей</span>
+      <span style="color: var(--line);">|</span>
+      <span>Таргетированная реклама</span>
+    </div>
+    <!-- 2. РЕКВИЗИТЫ ДЛЯ МОДЕРАЦИИ -->
+    <div class="footer-legal">
+      Самозанятый (НПД) Берсенёв Алексей<br>
+      ИНН: <span style="opacity: 0.5;">[Вставьте ваш ИНН]</span>
+    </div>
+  </footer>
+</div></section>
+</main>
+
+<a href="https://t.me/albersenev?text=Алексей,%20здравствуйте!%20Пишу%20с%20сайта,%20хочу%20обсудить%20проект." class="fab" aria-label="Написать в Telegram">
+  <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"></path></svg>
+</a>
+
+<!-- Модальное окно Квиза -->
+<div class="modal-overlay" id="quizModal" onclick="window.closeOutside(event)">
+  <div class="modal-content">
+    <button class="close-btn" onclick="window.closeQuiz()">×</button>
+    <div class="quiz-progress"><div class="quiz-bar" id="qBar"></div></div>
+    
+    <div class="quiz-step active" id="step1">
+      <div class="quiz-step-counter">Шаг 1 из 3</div>
+      <div class="quiz-title">Какая у вас ниша?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="window.saveQuizData('niche', 'Услуги красоты'); window.goToStep(2)">Услуги красоты</button>
+        <button class="quiz-opt" onclick="window.saveQuizData('niche', 'Мебель на заказ'); window.goToStep(2)">Мебель на заказ</button>
+        <button class="quiz-opt" onclick="window.saveQuizData('niche', 'Ремонт и стройка'); window.goToStep(2)">Ремонт и стройка</button>
+        <button class="quiz-opt" onclick="window.saveQuizData('niche', 'Другая ниша'); window.goToStep(2)">Другая ниша</button>
+      </div>
+    </div>
+    
+    <div class="quiz-step" id="step2">
+      <div class="quiz-step-counter">Шаг 2 из 3</div>
+      <div class="quiz-title">Какой рекламный бюджет в месяц готовы тестировать?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="window.saveQuizData('budget', 'До 30 000 ₽'); window.goToStep(3)">До 30 000 ₽</button>
+        <button class="quiz-opt" onclick="window.saveQuizData('budget', '30 000 - 70 000 ₽'); window.goToStep(3)">30 000 - 70 000 ₽</button>
+        <button class="quiz-opt" onclick="window.saveQuizData('budget', 'Больше 70 000 ₽'); window.goToStep(3)">Больше 70 000 ₽</button>
+        <button class="quiz-opt" onclick="window.saveQuizData('budget', 'Пока не готов ответить'); window.goToStep(3)">Пока не готов ответить</button>
+      </div>
+      <button class="quiz-back" onclick="window.goToStep(1)">← Назад</button>
+    </div>
+    
+    <div class="quiz-step" id="step3">
+      <div class="quiz-step-counter">Шаг 3 из 3</div>
+      <div class="quiz-title">Где с вами связаться?</div>
+      
+      <!-- HONEYPOT (Ловушка для спам-ботов) -->
+      <input type="text" class="gotcha" id="qGotcha" tabindex="-1" autocomplete="off" placeholder="Не заполнять">
+      
+      <input type="text" class="quiz-input" placeholder="Как вас зовут" id="qName">
+      <input type="tel" class="quiz-input" placeholder="+7 (999) 000-00-00" id="qPhone">
+      <div class="quiz-radio-group" id="messengerGroup">
+        <span class="quiz-radio-label">Выберите мессенджер:</span>
+        <button class="quiz-radio-btn selected" onclick="window.selectMessenger(this, 'Telegram')">Telegram</button>
+        <button class="quiz-radio-btn" onclick="window.selectMessenger(this, 'MAX')">MAX</button>
+        <button class="quiz-radio-btn" onclick="window.selectMessenger(this, 'ВКонтакте')">ВКонтакте</button>
+      </div>
+      <input type="hidden" id="qMessenger" value="Telegram">
+      <button class="btn" style="width: 100%; justify-content: center;" onclick="window.finishQuiz()">Получить расчёт</button>
+      <div class="quiz-error" id="qError"></div>
+      
+      <label class="quiz-checkbox" id="qAgreeLabel" for="qAgree">
+        <input type="checkbox" id="qAgree" checked>
+        <span>Я согласен на обработку персональных данных по <a href="#" onclick="window.openPolicy(event)">политике конфиденциальности</a></span>
+      </label>
+      
+      <button class="quiz-back" onclick="window.goToStep(2)">← Назад</button>
+    </div>
+    
+    <div class="quiz-step" id="stepSuccess">
+      <div class="quiz-title" style="color: var(--acc); text-align: center;">Принято!</div>
+      <p style="color: var(--mut); text-align: center;">Я подготовлю предварительный расчет по вашей нише и свяжусь с вами.<br><br><b style="color: var(--ink);">Ваш бонус (чек-лист) будет отправлен вместе с расчетом.</b></p>
+    </div>
+  </div>
+</div>
+
+<!-- Модальное окно Политики (152-ФЗ) -->
+<div class="modal-overlay" id="policyModal" onclick="window.closePolicyOutside(event)" style="z-index: 1001;">
+  <div class="modal-content" style="max-height: 85vh; overflow-y: auto;">
+    <button class="close-btn" onclick="window.closePolicy()">×</button>
+    <div class="quiz-title">Политика конфиденциальности</div>
+    <div style="color: var(--mut); font-size: 13px; line-height: 1.6;">
+      <p>Настоящая Политика конфиденциальности описывает, как мы собираем, используем и защищаем ваши персональные данные в соответствии с Федеральным законом № 152-ФЗ «О персональных данных».</p><br>
+      <p><b>1. Сбор данных</b><br>Мы собираем только те данные, которые вы добровольно предоставляете при заполнении форм на сайте.</p><br>
+      <p><b>2. Использование данных</b><br>Ваши данные используются исключительно для связи с вами и предоставления расчетов.</p><br>
+      <p><b>3. Защита данных</b><br>Мы не передаем ваши контактные данные третьим лицам без вашего согласия, за исключением случаев, предусмотренных законодательством РФ.</p><br>
+      <p><i>Оператор персональных данных: Самозанятый (НПД) Берсенёв Алексей</i></p>
+    </div>
+    <button class="btn" style="width: 100%; justify-content: center; margin-top: 24px;" onclick="window.closePolicy()">Понятно, закрыть</button>
+  </div>
+</div>
+
+<!-- Ловец уходящих (Exit Intent Popup) -->
+<div class="modal-overlay" id="exitModal" onclick="window.closeExitOutside(event)">
+  <div class="modal-content" style="text-align: center;">
+    <button class="close-btn" onclick="window.closeExitModal()">×</button>
+    <div class="exit-title">Уже уходите? 👀</div>
+    <div class="exit-text" style="color: var(--mut); margin-bottom: 24px; line-height: 1.5; font-size: 15px;">Не упускайте возможность! Заберите бесплатный чек-лист «Как подготовить бизнес к рекламе», чтобы не слить бюджет на старте.</div>
+    <button class="btn" style="width: 100%; justify-content: center; font-size: 16px;" onclick="window.claimBonus()">Забрать чек-лист</button>
+  </div>
+</div>
+
+<!-- Cookie Banner -->
+<div class="cookie-banner" id="cookieBanner">
+  <span>Мы используем cookie-файлы для аналитики и улучшения работы сайта.</span>
+  <button onclick="window.acceptCookies()">Хорошо</button>
+</div>
+
+<script>
+window.userQuizData = { niche: 'Не выбрано', budget: 'Не выбрано' };
+window.saveQuizData = function(key, value) { window.userQuizData[key] = value; };
+
+window.openQuiz = function() {
+  var modal = document.getElementById('quizModal');
+  if(modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; window.goToStep(1); }
+  var err = document.getElementById('qError');
+  if(err) err.style.display = 'none';
+};
+window.closeQuiz = function() {
+  var modal = document.getElementById('quizModal');
+  if(modal) { modal.classList.remove('active'); document.body.style.overflow = ''; }
+};
+window.closeOutside = function(e) { if (e.target.id === 'quizModal') window.closeQuiz(); };
+
+window.goToStep = function(step) {
+  document.querySelectorAll('.quiz-step').forEach(function(s){ s.classList.remove('active'); });
+  var nStep = document.getElementById('step' + step);
+  if(nStep) nStep.classList.add('active');
+  var bar = document.getElementById('qBar');
+  if(bar) bar.style.width = (step === 1 ? 33 : (step === 2 ? 66 : 100)) + '%';
+};
+
+window.selectMessenger = function(btn, name) {
+  document.querySelectorAll('.quiz-radio-btn').forEach(function(b){ b.classList.remove('selected'); });
+  if(btn) btn.classList.add('selected');
+  var qMs = document.getElementById('qMessenger');
+  if(qMs) qMs.value = name;
+};
+
+// Функция парсинга UTM
+window.getUTMs = function() {
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var utms = [];
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(key) {
+      if(params.has(key) && params.get(key)) utms.push(key + ': ' + params.get(key));
+    });
+    return utms.length ? '\n\n📊 UTM-метки:\n' + utms.join('\n') : '';
+  } catch(e) { return ''; }
+};
+
+window.finishQuiz = function() {
+  var LEAD_ENDPOINT = 'https://lead.all-bersenev.workers.dev'; 
+
+  var nameEl = document.getElementById('qName'), 
+      phoneEl = document.getElementById('qPhone'), 
+      messEl = document.getElementById('qMessenger'), 
+      agreeEl = document.getElementById('qAgree'), 
+      agreeLabel = document.getElementById('qAgreeLabel'),
+      errEl = document.getElementById('qError'),
+      gotchaEl = document.getElementById('qGotcha');
+
+  if(!nameEl || !phoneEl || !messEl || !agreeEl || !errEl) return;
+  
+  // HONEYPOT check: Если бот заполнил скрытое поле — обрываем отправку.
+  if(gotchaEl && gotchaEl.value !== "") return;
+
+  var name = nameEl.value || 'Не указано', phone = phoneEl.value, 
+      messenger = messEl.value, agree = agreeEl.checked;
+  
+  // 4. Микроанимация ошибок (Shake)
+  if(phone.length < 5) {
+    errEl.textContent = 'Пожалуйста, введите корректный номер или ник.';
+    errEl.style.display = 'block';
+    phoneEl.classList.add('shake');
+    setTimeout(function() { phoneEl.classList.remove('shake'); }, 400);
+    return;
+  }
+  if(!agree) {
+    errEl.textContent = 'Необходимо согласие на обработку данных (поставьте галочку).';
+    errEl.style.display = 'block';
+    if (agreeLabel) {
+      agreeLabel.classList.add('shake');
+      setTimeout(function() { agreeLabel.classList.remove('shake'); }, 400);
+    }
+    return;
+  }
+  errEl.style.display = 'none';
+
+  try { if (typeof ym === 'function') ym(99999999, 'reachGoal', 'quiz_lead'); } catch(e){}
+  try { if (typeof VK === 'object' && VK.Retargeting) VK.Retargeting.Event('quiz_lead'); } catch(e){}
+  
+  fetch(LEAD_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      niche: window.userQuizData.niche,
+      budget: window.userQuizData.budget,
+      name: name,
+      phone: phone,
+      messenger: messenger,
+      utm: window.getUTMs()
+    })
+  }).catch(function(e) { console.error(e); });
+
+  document.querySelectorAll('.quiz-step').forEach(function(s){ s.classList.remove('active') });
+  var stepSuc = document.getElementById('stepSuccess');
+  if(stepSuc) stepSuc.classList.add('active');
+  var bar = document.getElementById('qBar');
+  if(bar) bar.style.background = '#4CAF50';
+};
+
+window.closeExitModal = function() { var em = document.getElementById('exitModal'); if(em) em.classList.remove('active'); };
+window.closeExitOutside = function(e) { if (e.target.id === 'exitModal') window.closeExitModal(); };
+window.claimBonus = function() { window.closeExitModal(); window.openQuiz(); };
+
+window.openPolicy = function(e) { e.preventDefault(); var p = document.getElementById('policyModal'); if(p) p.classList.add('active'); };
+window.closePolicy = function() { var p = document.getElementById('policyModal'); if(p) p.classList.remove('active'); };
+window.closePolicyOutside = function(e) { if (e.target.id === 'policyModal') window.closePolicy(); };
+
+window.acceptCookies = function() {
+  try { localStorage.setItem('cookieAccepted', 'true'); } catch(e){}
+  var cb = document.getElementById('cookieBanner');
+  if(cb) cb.classList.remove('show');
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+  
+  // Spotlight Effect (Динамическая подсветка)
+  document.querySelectorAll('.card, .price-card').forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      var rect = el.getBoundingClientRect();
+      el.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+      el.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+    });
+  });
+
+  // Магнитный курсор мишени
+  var tg = document.getElementById('tg'), cr = document.getElementById('cross');
+  if(tg && cr){
+    document.addEventListener('pointermove', function(e){
+      var r = tg.getBoundingClientRect(),
+          x = (e.clientX-r.left-r.width/2)/r.width*80,
+          y = (e.clientY-r.top-r.height/2)/r.height*80;
+      x = Math.max(-70, Math.min(70, x));
+      y = Math.max(-70, Math.min(70, y));
+      cr.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    });
+  }
+  
+  // Переключение темы
+  var root = document.documentElement, thBtn = document.getElementById('th');
+  if(thBtn){
+    thBtn.onclick = function(){
+      var d = root.dataset.theme ? root.dataset.theme === 'dark' : window.matchMedia('(prefers-color-scheme:dark)').matches;
+      root.dataset.theme = d ? 'light' : 'dark';
+    };
+  }
+
+  // Cookie баннер (Безопасный запуск)
+  var cookieAccepted = false;
+  try { cookieAccepted = localStorage.getItem('cookieAccepted'); } catch(e){}
+  if(!cookieAccepted) {
+    setTimeout(function() {
+      var cb = document.getElementById('cookieBanner');
+      if(cb) cb.classList.add('show');
+    }, 1500);
+  }
+
+  // Ловец уходящих курсоров (Безопасный запуск)
+  document.addEventListener('mouseleave', function(e) {
+    var shown = false;
+    try { shown = sessionStorage.getItem('exitShown'); } catch(e){}
+    
+    if (e.clientY < 10 && !shown) {
+      try { sessionStorage.setItem('exitShown', 'true'); } catch(e){}
+      var em = document.getElementById('exitModal');
+      if(em) em.classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
