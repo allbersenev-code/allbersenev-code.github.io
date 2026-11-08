@@ -283,6 +283,9 @@ footer { padding: 36px 0; color: var(--mut); font-size: 13px; display: flex; jus
 <header><div class="wrap">
   <a class="logo" href="#top"><i></i>Берсенёв Алексей</a>
   <nav><a href="#about">Принципы</a><a href="#services">Услуги</a><a href="#cases">Кейсы</a><a href="#process">Процесс</a></nav>
+  <nav>
+  <a href="brief.html" style="color: var(--acc); font-weight: 600;">Заполнить бриф</a>
+</nav>
   <div class="row" style="flex-wrap:nowrap;gap:8px"><button class="tg" id="th" aria-label="Тема">◐</button><a class="btn" onclick="window.openQuiz()" style="padding:10px 18px">Написать</a></div>
 </div></header>
 
@@ -788,6 +791,239 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
+</script>
+<!-- СКРЫТАЯ ПАНЕЛЬ АДМИНИСТРАТОРА С ЗАЩИТОЙ ПАРОЛЕМ -->
+<div id="adminPanel" style="position:fixed; bottom:10px; right:10px; z-index:99999;">
+  <!-- Невидимая триггер-кнопка (крошечная точка в углу, по клику на которую выскочит окно входа) -->
+  <div onclick="requestAdminLogin()" style="width:12px; height:12px; background:transparent; cursor:pointer;" title="Админ"></div>
+  
+  <!-- Панель управления (появляется только после ввода пароля) -->
+  <div id="adminControls" style="display:none; gap:8px; background:rgba(20,18,43,0.95); backdrop-filter:blur(10px); padding:8px 14px; border-radius:99px; border:1px solid rgba(255,255,255,0.15); box-shadow:0 10px 30px rgba(0,0,0,0.4); align-items:center;">
+    <span style="font-size:12px; color:#4CAF50; font-weight:600;">🛡️ Админ</span>
+    <button id="adminSaveBtn" onclick="saveAdminChanges()" style="background:#4CAF50; color:#fff; border:none; padding:6px 12px; border-radius:99px; font-size:12px; font-weight:600; cursor:pointer;">💾 Сохранить</button>
+    <button id="adminResetBtn" onclick="resetAdminChanges()" style="background:#ff4444; color:#fff; border:none; padding:6px 12px; border-radius:99px; font-size:12px; font-weight:600; cursor:pointer;">🔄 Сбросить</button>
+    <button onclick="logoutAdmin()" style="background:#333; color:#fff; border:none; padding:6px 10px; border-radius:99px; font-size:12px; cursor:pointer;" title="Выйти">✕</button>
+  </div>
+</div>
+
+<style>
+  .admin-editable-active {
+    outline: 2px dashed #ff6b00 !important;
+    outline-offset: 4px;
+    background: rgba(255, 107, 0, 0.04);
+    border-radius: 4px;
+    position: relative;
+  }
+  .admin-delete-btn {
+    display: none;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ff4444;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .admin-mode-on .admin-delete-btn {
+    display: flex;
+  }
+  .admin-add-btn {
+    display: none;
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px;
+    background: transparent;
+    border: 2px dashed var(--acc, #ff6b00);
+    color: var(--acc, #ff6b00);
+    border-radius: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .admin-mode-on .admin-add-btn {
+    display: block;
+  }
+  .admin-add-btn:hover {
+    background: var(--glow);
+  }
+</style>
+
+<script>
+// НАСТРОЙКИ ДОСТУПА (Укажите свои логин и пароль)
+var ADMIN_USER = "aleshabersenev11";
+var ADMIN_PASS = "Aa19992911"; 
+
+// Автоматическая загрузка сохраненных изменений
+document.addEventListener("DOMContentLoaded", function() {
+  try {
+    var savedHTML = localStorage.getItem('siteFullHTMLState');
+    if (savedHTML) {
+      var mainEl = document.querySelector('main');
+      if (mainEl) mainEl.innerHTML = savedHTML;
+    }
+    // Проверка, был ли админ уже авторизован в этой сессии
+    if (sessionStorage.getItem('isLoggedIn') === 'true') {
+      activateAdminFeatures();
+    }
+  } catch(e) { console.error('Ошибка загрузки данных:', e); }
+});
+
+function requestAdminLogin() {
+  if (sessionStorage.getItem('isLoggedIn') === 'true') {
+    return; // Уже вошел
+  }
+  
+  var u = prompt("Введите логин администратора:");
+  if (!u) return;
+  var p = prompt("Введите пароль:");
+  
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    sessionStorage.setItem('isLoggedIn', 'true');
+    activateAdminFeatures();
+    alert('Успешный вход в режим администратора!');
+  } else {
+    alert('Неверный логин или пароль!');
+  }
+}
+
+function activateAdminFeatures() {
+  var controls = document.getElementById('adminControls');
+  if (controls) controls.style.display = 'flex';
+  
+  var body = document.body;
+  body.classList.add('admin-mode-on');
+
+  // Делаем тексты редактируемыми
+  var textNodes = document.querySelectorAll('h1, h2, h3, p, span, small, li, .price, .badge');
+  textNodes.forEach(function(el, index) {
+    if (el.closest('#adminPanel')) return;
+    if (!el.id && !el.closest('header') && !el.closest('footer')) {
+      el.id = 'txt_elem_' + index + '_' + Math.random().toString(36).substring(2, 7);
+    }
+    if (el.id && !el.closest('header') && !el.closest('footer')) {
+      el.contentEditable = "true";
+      el.classList.add('admin-editable-active');
+    }
+  });
+
+  // Настраиваем контейнеры для добавления/удаления
+  setupAdminContainers('.cases', createCaseCard, '➕ Добавить кейс');
+  setupAdminContainers('.pricing', createPriceCard, '➕ Добавить тариф');
+  setupAdminContainers('.steps', createStepCard, '➕ Добавить шаг');
+  setupAdminContainers('.faq', createFaqItem, '➕ Добавить вопрос в FAQ');
+}
+
+function logoutAdmin() {
+  sessionStorage.removeItem('isLoggedIn');
+  location.reload();
+}
+
+function setupAdminContainers(selector, createTemplateFn, btnText) {
+  var container = document.querySelector(selector);
+  if (!container) return;
+
+  var items = container.children;
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    if (!item.classList.contains('admin-add-btn') && !item.querySelector('.admin-delete-btn')) {
+      item.style.position = 'relative';
+      var delBtn = document.createElement('button');
+      delBtn.className = 'admin-delete-btn';
+      delBtn.innerHTML = '×';
+      delBtn.title = 'Удалить этот элемент';
+      delBtn.onclick = (function(targetItem) {
+        return function(e) {
+          e.stopPropagation();
+          if (confirm('Удалить этот элемент?')) {
+            targetItem.remove();
+          }
+        };
+      })(item);
+      item.appendChild(delBtn);
+    }
+  }
+
+  if (!container.querySelector('.admin-add-btn')) {
+    var addBtn = document.createElement('button');
+    addBtn.className = 'admin-add-btn';
+    addBtn.textContent = btnText;
+    addBtn.onclick = function() {
+      var tempDiv = document.createElement('div');
+      tempDiv.innerHTML = createTemplateFn();
+      var newItem = tempDiv.firstElementChild;
+      
+      newItem.style.position = 'relative';
+      var delBtn = document.createElement('button');
+      delBtn.className = 'admin-delete-btn';
+      delBtn.innerHTML = '×';
+      delBtn.onclick = function(e) {
+        e.stopPropagation();
+        if (confirm('Удалить этот элемент?')) newItem.remove();
+      };
+      newItem.appendChild(delBtn);
+
+      container.appendChild(newItem);
+
+      newItem.querySelectorAll('h1, h2, h3, p, span, small, li, .price, .badge').forEach(function(el) {
+        el.id = 'new_elem_' + Math.random().toString(36).substring(2, 8);
+        el.contentEditable = "true";
+        el.classList.add('admin-editable-active');
+      });
+    };
+    container.appendChild(addBtn);
+  }
+}
+
+function createCaseCard() {
+  return '<article class="card case admin-editable-active"><div class="badge">Новая ниша</div><small>Направление</small><div class="case-chart"><div class="case-bar"></div><div class="case-bar"></div><div class="case-bar"></div><div class="case-bar"></div></div><h3><span class="num">10</span> лидов</h3><p>Описание результатов работы.</p></article>';
+}
+
+function createPriceCard() {
+  return '<div class="card price-card admin-editable-active"><h3>Новый тариф</h3><div class="price" style="font-size: 26px;">20 000 ₽ <span style="font-size: 14px; font-weight: 500; color: var(--mut);">/ мес</span></div><ul><li>Пункт 1</li><li>Пункт 2</li></ul><button class="btn ghost" onclick="window.openQuiz()">Выбрать</button></div>';
+}
+
+function createStepCard() {
+  return '<div class="card admin-editable-active"><h3>Новый этап</h3><p>Описание шага работы.</p></div>';
+}
+
+function createFaqItem() {
+  return '<details open class="admin-editable-active" style="background:color-mix(in srgb, var(--surf) 90%, transparent); border:1px solid var(--acc); border-radius:22px; overflow:hidden; margin-bottom:14px;"><summary style="padding:24px; font:600 16px Inter, sans-serif; cursor:pointer;">Новый вопрос?</summary><div class="faq-content" style="padding:0 24px 24px; color:var(--mut);">Ответ на добавленный вопрос.</div></details>';
+}
+
+function saveAdminChanges() {
+  try {
+    document.querySelectorAll('.admin-editable-active').forEach(function(el) {
+      el.classList.remove('admin-editable-active');
+      el.removeAttribute('contenteditable');
+    });
+    document.querySelectorAll('.admin-add-btn, .admin-delete-btn').forEach(function(el) {
+      el.remove();
+    });
+
+    var mainHTML = document.querySelector('main').innerHTML;
+    localStorage.setItem('siteFullHTMLState', mainHTML);
+
+    alert('Изменения успешно сохранены!');
+    location.reload();
+  } catch(e) {
+    alert('Ошибка при сохранении: ' + e);
+  }
+}
+
+function resetAdminChanges() {
+  if (confirm('Сбросить все изменения и вернуть исходный сайт?')) {
+    localStorage.removeItem('siteFullHTMLState');
+    location.reload();
+  }
+}
 </script>
 </body>
 </html>
