@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Бриф на настройку рекламы — Берсенёв Алексей</title>
+<meta name="description" content="Заполните бриф, чтобы получить точный расчет и стратегию продвижения.">
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root { --bg: #f6f5fb; --surf: #ffffff; --ink: #14122b; --mut: #6b6885; --line: #e4e2f0; --acc: #ff6b00; --acc2: #ffa866; --glow: rgba(255, 107, 0, 0.14); color-scheme: light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0a0a0a; --surf: #141414; --ink: #f1f0fb; --mut: #9b98b8; --line: #2a2848; --acc: #ff6b00; --acc2: #cc5500; --glow: rgba(255, 107, 0, 0.18); color-scheme: dark; } }
+
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 400 15px/1.6 Inter, sans-serif; overflow-x: hidden; }
+h1, h2, h3 { font-family: Unbounded, sans-serif; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--mut); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--acc); }
+
+header { position: sticky; top: 0; z-index: 9; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; color: var(--mut); transition: color 0.2s; }
+.back-link:hover { color: var(--ink); }
+
+.hero { padding: 40px 0 20px; text-align: center; }
+.hero h1 { font-size: clamp(26px, 4vw, 36px); margin-bottom: 12px; }
+.hero p { color: var(--mut); max-width: 500px; margin: 0 auto; }
+
+/* Стили формы */
+.brief-form { background: color-mix(in srgb, var(--surf) 80%, transparent); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 24px; padding: clamp(24px, 5vw, 40px); margin-bottom: 60px; box-shadow: 0 15px 35px rgba(0,0,0,0.03); }
+fieldset { border: none; padding: 0; margin: 0 0 32px; }
+fieldset legend { font: 700 20px Unbounded, sans-serif; color: var(--ink); margin-bottom: 20px; width: 100%; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+
+.form-group { margin-bottom: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--ink); font-size: 14px; }
+label span { color: #ff4444; } /* Звездочка обязательного поля */
+.sub-label { display: block; font-size: 12px; color: var(--mut); margin-top: -4px; margin-bottom: 8px; }
+
+input[type="text"], input[type="tel"], input[type="url"], select, textarea {
+  width: 100%; padding: 14px 18px; background: transparent; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); font-family: Inter, sans-serif; font-size: 15px; transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--acc); box-shadow: 0 0 0 4px var(--glow); }
+textarea { resize: vertical; min-height: 100px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; border-radius: 99px; background: var(--acc); color: #fff; font-weight: 600; font-size: 16px; border: 0; cursor: pointer; transition: transform .2s, box-shadow .2s; width: 100%; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px var(--glow); }
+.btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+.gotcha { opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1; }
+.error-msg { color: #ff4444; font-size: 13px; margin-top: 12px; text-align: center; display: none; }
+
+/* Экран успеха */
+.success-screen { display: none; text-align: center; padding: 60px 20px; }
+.success-icon { width: 80px; height: 80px; background: rgba(76, 175, 80, 0.1); color: #4CAF50; border-radius: 50%; display: inline-grid; place-items: center; font-size: 40px; margin-bottom: 24px; }
+
+@media(max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="back-link">← На главную</a>
+    <div style="font: 700 14px Unbounded, sans-serif;">А. Берсенёв</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <h1>Бриф на настройку рекламы</h1>
+    <p>Ответьте на несколько вопросов, чтобы я погрузился в ваш проект, оценил его потенциал и подготовил точный расчет.</p>
+  </div>
+
+  <div class="brief-form" id="formContainer">
+    <form id="briefForm">
+      
+      <!-- HONEYPOT -->
+      <input type="text" class="gotcha" id="bGotcha" tabindex="-1" autocomplete="off" placeholder="Не заполнять">
+
+      <fieldset>
+        <legend>1. Контакты</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bName">Как к вам обращаться? <span>*</span></label>
+            <input type="text" id="bName" required placeholder="Иван Иванов">
+          </div>
+          <div class="form-group">
+            <label for="bPhone">Телефон <span>*</span></label>
+            <input type="tel" id="bPhone" required placeholder="+7 (999) 000-00-00">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bTg">Ник в Telegram (если есть)</label>
+          <input type="text" id="bTg" placeholder="@username">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. О проекте</legend>
+        <div class="form-group">
+          <label for="bProject">Название проекта / компании <span>*</span></label>
+          <input type="text" id="bProject" required placeholder="Например: Студия кухонь «Гармония»">
+        </div>
+        <div class="form-group">
+          <label for="bLink">Ссылки на проект <span>*</span></label>
+          <span class="sub-label">Сайт, группа ВКонтакте, канал в Telegram</span>
+          <textarea id="bLink" required placeholder="Вставьте ссылки сюда..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="bProduct">Что именно будем рекламировать? <span>*</span></label>
+          <span class="sub-label">Опишите ваш основной продукт или услугу, маржу, средний чек.</span>
+          <textarea id="bProduct" required placeholder="Мы продаем..."></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Аудитория и конкуренты</legend>
+        <div class="form-group">
+          <label for="bCA">Кто ваши клиенты?</label>
+          <span class="sub-label">Пол, возраст, гео, какие проблемы решает ваш продукт.</span>
+          <textarea id="bCA" placeholder="В основном это женщины 25-45 лет из..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="bAdv">Ваши главные преимущества (УТП) <span>*</span></label>
+          <span class="sub-label">Почему покупают у вас, а не у конкурентов? (Гарантия, сроки, цена, акции).</span>
+          <textarea id="bAdv" required placeholder="У нас собственное производство и рассрочка 0%..."></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. Цели и бюджет</legend>
+        <div class="form-group">
+          <label for="bGoal">Главная цель рекламной кампании <span>*</span></label>
+          <select id="bGoal" required>
+            <option value="" disabled selected>Выберите цель...</option>
+            <option value="Получение лидов/заявок">Получение лидов/заявок</option>
+            <option value="Прямые продажи на сайте">Прямые продажи на сайте</option>
+            <option value="Подписчики в сообщество/канал">Подписчики в сообщество/канал</option>
+            <option value="Узнаваемость бренда (Охват)">Узнаваемость бренда (Охват)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="bBudget">Какой тестовый бюджет готовы выделить?</label>
+          <input type="text" id="bBudget" placeholder="Например: 15 000 - 30 000 руб.">
+        </div>
+        <div class="form-group">
+          <label for="bExp">Был ли ранее опыт запуска рекламы?</label>
+          <textarea id="bExp" placeholder="Да, запускали ВК, но заявки были дорогие..."></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn" id="submitBtn">Отправить бриф на разбор</button>
+      <div class="error-msg" id="bError">Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.</div>
+      
+      <div style="font-size: 12px; color: var(--mut); text-align: center; margin-top: 16px;">
+        Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.
+      </div>
+    </form>
+  </div>
+
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h2>Бриф успешно отправлен!</h2>
+    <p style="color: var(--mut); margin: 16px auto 30px; max-width: 400px;">Спасибо за подробные ответы. Я изучу информацию и свяжусь с вами в ближайшее время для обсуждения стратегии.</p>
+    <a href="index.html" class="btn" style="width: auto;">Вернуться на главную</a>
+  </div>
+</main>
+
+<script>
+document.getElementById('briefForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  var gotcha = document.getElementById('bGotcha').value;
+  if(gotcha !== "") return; // Защита от ботов
+
+  var btn = document.getElementById('submitBtn');
+  var errEl = document.getElementById('bError');
+  btn.disabled = true;
+  btn.textContent = 'Отправка...';
+  errEl.style.display = 'none';
+
+  // Собираем данные формы
+  var data = {
+    name: document.getElementById('bName').value,
+    phone: document.getElementById('bPhone').value,
+    tg: document.getElementById('bTg').value || 'Не указан',
+    project: document.getElementById('bProject').value,
+    links: document.getElementById('bLink').value,
+    product: document.getElementById('bProduct').value,
+    ca: document.getElementById('bCA').value || 'Не заполнено',
+    adv: document.getElementById('bAdv').value,
+    goal: document.getElementById('bGoal').value,
+    budget: document.getElementById('bBudget').value || 'Не указан',
+    exp: document.getElementById('bExp').value || 'Не заполнено'
+  };
+
+  // Формируем красивое сообщение для Telegram с разметкой Markdown
+  var msg = `🔥 *НОВЫЙ БРИФ С САЙТА*\n\n` +
+            `👤 *КОНТАКТЫ:*\n` +
+            `Имя: ${data.name}\n` +
+            `Телефон: ${data.phone}\n` +
+            `Telegram: ${data.tg}\n\n` +
+            `💼 *О ПРОЕКТЕ:*\n` +
+            `Название: ${data.project}\n` +
+            `Ссылки: ${data.links}\n` +
+            `Продукт: ${data.product}\n\n` +
+            `🎯 *АУДИТОРИЯ И УТП:*\n` +
+            `Преимущества: ${data.adv}\n` +
+            `ЦА: ${data.ca}\n\n` +
+            `💰 *ЦЕЛИ И БЮДЖЕТ:*\n` +
+            `Цель: ${data.goal}\n` +
+            `Бюджет: ${data.budget}\n` +
+            `Опыт: ${data.exp}`;
+
+  // ВАЖНО: Вставьте сюда актуальный зашифрованный токен (такой же, как в index.html)
+  var _t = atob('OTI5MDY0OTk1MzpBQUZyUm9XOFF0bE1lMkZHY2lkMXBLYVFCSUd3SFVtWWpGZw==');
+  var CHAT_ID = '721923385';
+
+  fetch('https://api.telegram.org/bot' + _t + '/sendMessage', {
+    method: 'POST', 
+    headers: { 'Content-Type': 'application/json' }, 
+    body: JSON.stringify({ 
+      chat_id: CHAT_ID, 
+      text: msg,
+      parse_mode: 'Markdown' 
+    })
+  })
+  .then(function(response) {
+      if (!response.ok) throw new Error('Ошибка сети');
+      return response.json();
+  })
+  .then(function() {
+      // Прячем форму, показываем экран успеха
+      document.getElementById('formContainer').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+      window.scrollTo(0, 0);
+  })
+  .catch(function(e) {
+      console.error(e);
+      btn.disabled = false;
+      btn.textContent = 'Отправить бриф на разбор';
+      errEl.style.display = 'block';
+  });
+});
+</script>
+</body>
+</html>
