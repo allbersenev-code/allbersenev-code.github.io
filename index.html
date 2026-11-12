@@ -377,109 +377,114 @@
             }
         });
 
-        // Защита формы от ботов (Cloudflare Turnstile)
-window.TS_SITEKEY = '0x4AAAAAAF5j7C1SC3PSRb9h'; 
+ // Защита формы от ботов (Cloudflare Turnstile)
+window.TS_SITEKEY = '0x4AAAAAAFyXR_cYbvHBowU7'; // ← вставьте Site Key из Cloudflare (публичный ключ)
 window.tsToken = '';
 window.tsWidgetId = null;
 window.tsEnabled = function() { return window.TS_SITEKEY && window.TS_SITEKEY.indexOf('ВАШ') === -1; };
-
 window.renderTurnstile = function() {
-    if (!window.tsEnabled() || window.tsWidgetId !== null) return;
-    if (typeof turnstile === 'undefined') { setTimeout(window.renderTurnstile, 400); return; }
-    window.tsWidgetId = turnstile.render('#tsBox', {
-        sitekey: window.TS_SITEKEY,
-        theme: 'dark',
-        callback: function(token) { window.tsToken = token; },
-        'expired-callback': function() { window.tsToken = ''; },
-        'error-callback': function() { window.tsToken = ''; }
-    });
+  if (!window.tsEnabled() || window.tsWidgetId !== null) return;
+  if (typeof turnstile === 'undefined') { setTimeout(window.renderTurnstile, 400); return; }
+  window.tsWidgetId = turnstile.render('#tsBox', {
+    sitekey: window.TS_SITEKEY,
+    theme: 'dark',
+    callback: function(token) { window.tsToken = token; },
+    'expired-callback': function() { window.tsToken = ''; },
+    'error-callback': function() { window.tsToken = ''; }
+  });
 };
 
-function openQuiz() {
-    document.getElementById('quizModal').classList.add('active');
-    document.body.style.overflow = 'hidden'; 
-    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-    document.getElementById('step1').classList.add('active');
-    document.getElementById('qError').style.display = 'none';
-}
+window.selectMessenger = function(btn, name) {
+  document.querySelectorAll('.quiz-radio-btn').forEach(function(b){ b.classList.remove('selected'); });
+  if(btn) btn.classList.add('selected');
+  var qMs = document.getElementById('qMessenger');
+  if(qMs) qMs.value = name;
+};
 
-function closeQuiz() {
-    document.getElementById('quizModal').classList.remove('active');
-    document.body.style.overflow = ''; 
-}
-
-function closeOutside(e) { if (e.target.id === 'quizModal') closeQuiz(); }
-
-function nextStep(step) {
-    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-    document.getElementById('step' + step).classList.add('active');
-    if (step === 3) {
-        window.renderTurnstile(); // Вызываем капчу на последнем шаге
-    }
-}
-
-// Оригинальная функция отправки на Worker
-function finishQuiz() {
-    var LEAD_ENDPOINT = 'https://lead.all-bersenev.workers.dev'; 
-    var gotcha = document.getElementById('qGotcha').value;
-    if(gotcha !== "") return; 
-
-    var errEl = document.getElementById('qError');
-    var btn = document.getElementById('submitBtn');
-    
-    var niche = document.getElementById('qNiche').value || 'Не выбрано';
-    var budget = document.getElementById('qBudget').value || 'Не выбрано';
-    var phone = document.getElementById('qPhone').value;
-
-    if (!phone || phone.length < 5) {
-        errEl.textContent = 'Пожалуйста, введите корректный контакт.';
-        errEl.style.display = 'block';
-        return;
-    }
-
-    if (window.tsEnabled() && !window.tsToken) {
-        errEl.textContent = 'Подтвердите, что вы не робот (проверка выше).';
-        errEl.style.display = 'block';
-        return;
-    }
-
-    if (window.sendingLead) return;
-    errEl.style.display = 'none';
-    window.sendingLead = true;
-    btn.disabled = true;
-    btn.textContent = 'ОТПРАВКА...';
-
-    fetch(LEAD_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            niche: niche,
-            budget: budget,
-            name: 'С сайта',
-            phone: phone,
-            messenger: 'Не выбран',
-            utm: '',
-            ts: window.tsToken
-        })
-    }).then(function(r) {
-        window.sendingLead = false;
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        
-        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-        document.getElementById('step4').classList.add('active');
-        
-        try { if (typeof ym === 'function') ym(99999999, 'reachGoal', 'quiz_lead'); } catch(e){}
-    }).catch(function(e) {
-        console.error(e);
-        window.sendingLead = false;
-        window.tsToken = '';
-        try { if (window.tsWidgetId !== null) turnstile.reset(window.tsWidgetId); } catch(x){}
-        errEl.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз через минуту.';
-        errEl.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Запустить систему';
+// Функция парсинга UTM
+window.getUTMs = function() {
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var utms = [];
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(key) {
+      if(params.has(key) && params.get(key)) utms.push(key + ': ' + params.get(key));
     });
-}
+    return utms.length ? '\n\n📊 UTM-метки:\n' + utms.join('\n') : '';
+  } catch(e) { return ''; }
+};
+
+window.finishQuiz = function() {
+  var LEAD_ENDPOINT = 'https://lead.all-bersenev.workers.dev'; 
+
+  var nameEl = document.getElementById('qName'), 
+      phoneEl = document.getElementById('qPhone'), 
+      messEl = document.getElementById('qMessenger'), 
+      agreeEl = document.getElementById('qAgree'), 
+      agreeLabel = document.getElementById('qAgreeLabel'),
+      errEl = document.getElementById('qError'),
+      gotchaEl = document.getElementById('qGotcha');
+
+  if(!nameEl || !phoneEl || !messEl || !agreeEl || !errEl) return;
+  
+  // HONEYPOT check: Если бот заполнил скрытое поле — обрываем отправку.
+  if(gotchaEl && gotchaEl.value !== "") return;
+
+  var name = nameEl.value || 'Не указано', phone = phoneEl.value, 
+      messenger = messEl.value, agree = agreeEl.checked;
+  
+  // 4. Микроанимация ошибок (Shake)
+  if(phone.length < 5) {
+    errEl.textContent = 'Пожалуйста, введите корректный номер или ник.';
+    errEl.style.display = 'block';
+    phoneEl.classList.add('shake');
+    setTimeout(function() { phoneEl.classList.remove('shake'); }, 400);
+    return;
+  }
+  if(!agree) {
+    errEl.textContent = 'Необходимо согласие на обработку данных (поставьте галочку).';
+    errEl.style.display = 'block';
+    if (agreeLabel) {
+      agreeLabel.classList.add('shake');
+      setTimeout(function() { agreeLabel.classList.remove('shake'); }, 400);
+    }
+    return;
+  }
+  if (window.tsEnabled() && !window.tsToken) {
+    errEl.textContent = 'Подтвердите, что вы не робот (проверка выше).';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (window.sendingLead) return;
+  errEl.style.display = 'none';
+  window.sendingLead = true;
+
+  fetch(LEAD_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      niche: window.userQuizData.niche,
+      budget: window.userQuizData.budget,
+      name: name,
+      phone: phone,
+      messenger: messenger,
+      utm: window.getUTMs(),
+      ts: window.tsToken
+    })
+  }).then(function(r) {
+    window.sendingLead = false;
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    try { if (typeof ym === 'function') ym(99999999, 'reachGoal', 'quiz_lead'); } catch(e){}
+    try { if (typeof VK === 'object' && VK.Retargeting) VK.Retargeting.Event('quiz_lead'); } catch(e){}
+    window.showQuizSuccess();
+  }).catch(function(e) {
+    console.error(e);
+    window.sendingLead = false;
+    window.tsToken = '';
+    try { if (window.tsWidgetId !== null) turnstile.reset(window.tsWidgetId); } catch(x){}
+    errEl.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз через минуту.';
+    errEl.style.display = 'block';
+  });
+};
     </script>
 </body>
 </html>
