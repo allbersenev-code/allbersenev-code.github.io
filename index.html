@@ -485,6 +485,99 @@ window.finishQuiz = function() {
     errEl.style.display = 'block';
   });
 };
+    <!-- КВИЗ -->
+    <div class="brutal-modal-overlay" id="quizModal" onclick="closeOutside(event)">
+        <div class="brutal-modal">
+            <button class="close-modal" onclick="closeQuiz()">×</button>
+            <h3 class="syne text-2xl font-bold uppercase mb-8 text-[#f0f0f0]" id="qTitle">Шаг 1: Ваша Ниша</h3>
+            
+            <div id="step1" class="step active">
+                <input type="text" id="qNiche" class="b-input" placeholder="Например: Ремонт квартир">
+                <button class="b-btn primary" onclick="nextStep(2)">Далее →</button>
+            </div>
+            
+            <div id="step2" class="step">
+                <p class="mb-4 opacity-60 text-sm">Какой рекламный бюджет в месяц готовы инвестировать?</p>
+                <select id="qBudget" class="b-input">
+                    <option>До 30 000 ₽</option>
+                    <option>30 000 - 70 000 ₽</option>
+                    <option>Больше 70 000 ₽</option>
+                </select>
+                <div class="flex gap-4 mt-2">
+                    <button class="b-btn" onclick="nextStep(1)">Назад</button>
+                    <button class="b-btn primary" onclick="nextStep(3)">Далее →</button>
+                </div>
+            </div>
+            
+            <div id="step3" class="step">
+                <p class="mb-4 opacity-60 text-sm">Куда прислать расчет и стратегию?</p>
+                <input type="text" id="qPhone" class="b-input" placeholder="Ваш Telegram или номер">
+                <div class="flex gap-4 mt-2">
+                    <button class="b-btn" onclick="nextStep(2)">Назад</button>
+                    <button class="b-btn primary" onclick="finishQuiz()">Отправить</button>
+                </div>
+            </div>
+
+            <div id="step4" class="step text-center">
+                <div class="text-[#ff4d00] text-5xl mb-4">✓</div>
+                <h3 class="syne text-3xl font-bold uppercase mb-4 text-[#f0f0f0]">Принято!</h3>
+                <p class="opacity-60 text-sm">Я свяжусь с вами в течение дня.</p>
+                <button class="b-btn mt-8" onclick="closeQuiz()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+            gsap.ticker.lagSmoothing(0);
+
+            const magnetBtn = document.querySelector('.magnetic-btn');
+            const magnetWrap = document.querySelector('.magnetic-wrap');
+            if(magnetBtn && magnetWrap && window.matchMedia("(pointer: fine)").matches) {
+                magnetWrap.addEventListener('mousemove', (e) => {
+                    const rect = magnetBtn.getBoundingClientRect();
+                    const h = rect.width / 2;
+                    const x = (e.clientX - rect.left - h) * 0.4;
+                    const y = (e.clientY - rect.top - h) * 0.4;
+                    gsap.to(magnetBtn, { x: x, y: y, duration: 0.3, ease: "power2.out" });
+                });
+                magnetWrap.addEventListener('mouseleave', () => {
+                    gsap.to(magnetBtn, { x: 0, y: 0, duration: 0.8, ease: "elastic.out(1, 0.3)" });
+                });
+            }
+        });
+
+        function openQuiz() {
+            document.getElementById('quizModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+            resetQuiz();
+        }
+        function closeQuiz() {
+            document.getElementById('quizModal').classList.remove('active');
+            document.body.style.overflow = ''; 
+        }
+        function closeOutside(e) { if (e.target.id === 'quizModal') closeQuiz(); }
+        function resetQuiz() {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('qTitle').innerText = 'Шаг 1: Ваша Ниша';
+        }
+        function nextStep(step) {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+            if(step === 1) document.getElementById('qTitle').innerText = 'Шаг 1: Ваша Ниша';
+            if(step === 2) document.getElementById('qTitle').innerText = 'Шаг 2: Бюджет';
+            if(step === 3) document.getElementById('qTitle').innerText = 'Шаг 3: Контакты';
+        }
+        function finishQuiz() {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step4').classList.add('active');
+            document.getElementById('qTitle').innerText = '';
+        }
     </script>
+    
 </body>
 </html>
