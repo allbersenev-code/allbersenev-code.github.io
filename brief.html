@@ -8,58 +8,76 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 <style>
-:root { --bg:#f6f5fb; --surf:#fff; --ink:#14122b; --mut:#6b6885; --line:#e4e2f0; --acc:#ff6b00; --acc2:#ffa866; --glow:rgba(255,107,0,.14); --bad:#d6453d; --ok:#1e9e6a; color-scheme:light; }
-@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ --bg:#0a0a0a; --surf:#141414; --ink:#f1f0fb; --mut:#9b98b8; --line:#2a2848; --glow:rgba(255,107,0,.18); color-scheme:dark; } }
-*{box-sizing:border-box} html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Inter,system-ui,sans-serif;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
-:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.wrap{max-width:760px;margin:0 auto;padding:0 20px}
-header{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 82%,transparent);position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{display:flex;align-items:center;gap:10px;font:700 15px Unbounded,sans-serif;color:inherit;text-decoration:none}
-.logo i{width:22px;height:22px;border-radius:50%;border:2px solid var(--acc);display:grid;place-items:center}
-.logo i::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc)}
-h1{font:700 clamp(26px,5vw,38px)/1.15 Unbounded,sans-serif;margin:36px 0 12px}
-h2{font:700 20px/1.3 Unbounded,sans-serif;margin:0 0 6px}
-.lead{color:var(--mut);margin:0 0 28px}
-.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 8px}
-.bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .35s}
-.cnt{font-size:13px;color:var(--mut);margin-bottom:20px}
-.step{display:none;background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:28px 24px}
-.step.on{display:block;animation:in .3s}
-@keyframes in{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.step.on{animation:none}.bar b{transition:none}}
-.sub{color:var(--mut);font-size:14px;margin:0 0 20px}
-label.f{display:block;margin-bottom:18px;font-weight:500;font-size:14px}
-label.f small{display:block;font-weight:400;color:var(--mut);margin-top:2px}
-.req::after{content:" *";color:var(--acc)}
-input,select,textarea{width:100%;margin-top:6px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:400 15px Inter,sans-serif}
-textarea{min-height:92px;resize:vertical}
-input:focus,select:focus,textarea:focus{border-color:var(--acc);outline:none;box-shadow:0 0 0 3px var(--glow)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media (max-width:620px){.g2,.g3{grid-template-columns:1fr}}
-.calc{background:var(--glow);border:1px solid var(--acc);border-radius:14px;padding:14px 16px;font-size:14px;margin-bottom:6px}
-.calc b{font:700 20px Unbounded,sans-serif;color:var(--acc);display:block;margin-top:2px}
-.nav{display:flex;justify-content:space-between;gap:12px;margin:22px 0 40px}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 24px;border-radius:99px;background:var(--acc);color:#fff;font:600 15px Inter,sans-serif;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px var(--glow)}
-.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn[disabled]{opacity:.5;cursor:wait;transform:none;box-shadow:none}
-.err{color:var(--bad);font-size:14px;margin:10px 0 0;display:none}
-.err.on{display:block}
-.bad{border-color:var(--bad)!important}
-.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:6px 0 14px}.chk input{width:auto;margin-top:3px}
-.hp{position:absolute;left:-9999px;opacity:0}
-.done{text-align:center;padding:20px 0}.done .ic{font-size:44px}
-.note{font-size:13px;color:var(--mut);margin-top:14px}
-footer{padding:0 0 40px;color:var(--mut);font-size:13px}
+:root { --bg:#050505; --surf:#111111; --ink:#e0e0e0; --mut:rgba(255,255,255,0.4); --line:rgba(255,255,255,0.1); --acc:#ff4d00; --acc2:#ff7b00; --glow:rgba(255,77,0,0.15); --bad:#ff4d00; --ok:#1e9e6a; color-scheme:dark; }
+* { box-sizing:border-box } html{scroll-behavior:smooth}
+body { margin:0; background:var(--bg); color:var(--ink); font:400 16px/1.55 Inter,sans-serif; padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom); -webkit-font-smoothing: antialiased; }
+
+:focus-visible { outline:2px solid var(--acc); outline-offset:2px }
+.wrap { max-width:760px; margin:0 auto; padding:0 20px; position:relative; z-index:10; }
+
+header { border-bottom:1px solid var(--line); background:color-mix(in srgb,var(--bg) 85%,transparent); position:sticky; top:0; z-index:50; backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+
+header { border-bottom:1px solid var(--line); background:color-mix(in srgb,var(--bg) 82%,transparent); position:sticky; top:0; z-index:50; backdrop-filter:blur(12px) }
+header .wrap { display:flex; align-items:center; justify-content:space-between; height:70px }
+.logo { display:flex; align-items:center; gap:10px; font:800 18px Syne,sans-serif; color:inherit; text-decoration:none; text-transform:uppercase; letter-spacing:-0.05em; }
+.logo i { width:22px; height:22px; border-radius:0; border:2px solid var(--acc); display:grid; place-items:center }
+.logo i::after { content:""; width:8px; height:8px; border-radius:0; background:var(--acc) }
+
+h1 { font:800 clamp(28px,6vw,46px)/1.1 Syne,sans-serif; margin:40px 0 16px; text-transform:uppercase; }
+h2 { font:800 24px/1.3 Syne,sans-serif; margin:0 0 12px; text-transform:uppercase; color:var(--acc); }
+.lead { color:var(--mut); margin:0 0 32px; font-size:18px; }
+
+.bar { height:4px; background:var(--line); overflow:hidden; margin:0 0 12px }
+.bar b { display:block; height:100%; width:0; background:var(--acc); transition:width .35s }
+.cnt { font-size:14px; font-family:'Syne',sans-serif; text-transform:uppercase; color:var(--mut); margin-bottom:24px; font-weight:700; letter-spacing:1px; }
+
+.step { display:none; background:var(--surf); border:1px solid var(--line); padding:40px; margin-bottom: 20px; border-radius: 16px; }
+.step.on { display:block; animation:in .4s cubic-bezier(0.16, 1, 0.3, 1) }
+@keyframes in { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:none} }
+
+.sub { color:var(--mut); font-size:15px; margin:0 0 28px }
+label.f { display:block; margin-bottom:24px; font-weight:600; font-size:15px; color:#fff; }
+label.f small { display:block; font-weight:400; color:var(--mut); margin-top:4px }
+.req::after { content:" *"; color:var(--acc) }
+
+input, select, textarea { width:100%; margin-top:8px; padding:16px 18px; border:1px solid var(--line); background:#1a1a1a; color:#fff; font:400 16px Inter,sans-serif; transition:border-color .2s, box-shadow .2s; border-radius:8px; }
+textarea { min-height:120px; resize:vertical }
+input:focus, select:focus, textarea:focus { border-color:var(--acc); outline:none; box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.1); }
+select option { background: #1a1a1a; color: #fff; }
+
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:20px }
+.g3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px }
+@media (max-width:620px) { .g2, .g3 { grid-template-columns:1fr; gap:0; } .step { padding:24px; } }
+
+.calc { background:rgba(255,77,0,0.03); border:1px solid var(--line); padding:20px; font-size:15px; margin-bottom:12px; border-radius: 12px; }
+.calc b { font:800 28px Syne,sans-serif; color:var(--acc); display:block; margin-top:6px }
+
+.nav { display:flex; justify-content:space-between; gap:16px; margin:32px 0 60px }
+.btn { display:inline-flex; align-items:center; justify-content:center; padding:16px 32px; background:transparent; color:var(--acc); font:700 16px Syne,sans-serif; text-transform:uppercase; border:1px solid var(--acc); cursor:pointer; transition:all .2s; border-radius:8px; }
+.btn:hover { background:var(--acc); color:var(--bg) }
+.btn.ghost { background:transparent; color:var(--ink); border:1px solid var(--line) }
+.btn.ghost:hover { border-color:var(--ink); color:#fff; background:rgba(255,255,255,0.05); }
+.btn[disabled] { opacity:.5; cursor:wait; border-color:var(--line); color:var(--mut); }
+.btn[disabled]:hover { background:transparent; color:var(--mut); }
+
+.err { color:var(--bad); font-size:15px; margin:14px 0 0; display:none }
+.err.on { display:block }
+.bad { border-color:var(--bad)!important }
+
+.chk { display:flex; gap:12px; align-items:flex-start; font-size:14px; margin:12px 0 20px; color:var(--mut) }
+.chk input { width:auto; margin-top:4px; accent-color:var(--acc); }
+.hp { position:absolute; left:-9999px; opacity:0 }
+
+.done { text-align:center; padding:40px 0 }
+.done .ic { font-size:60px; font-family:Syne,sans-serif; color:var(--acc); font-weight:800; line-height:1; margin-bottom:20px; }
+footer { padding:0 0 60px; color:var(--mut); font-size:14px; position:relative; z-index:10; }
 </style>
 </head>
 <body>
-<header><div class="wrap"><a class="logo" href="/"><i></i>Берсенёв Алексей</a><span style="color:var(--mut);font-size:14px">Бриф на запуск рекламы</span></div></header>
+<header><div class="wrap"><a class="logo" href="/"><i></i>Берсенёв Алексей</a><span style="color:var(--mut);font-size:14px;font-family:'Syne',sans-serif;text-transform:uppercase;font-weight:700;">Бриф на запуск рекламы</span></div></header>
 
 <main class="wrap">
   <h1>Расскажите о проекте, и я предложу план запуска</h1>
@@ -95,6 +113,10 @@ footer{padding:0 0 40px;color:var(--mut);font-size:13px}
       <label class="f" id="geoOther" style="display:none">Уточните регион<input data-k="business.geoDetail" placeholder="Города, районы, радиус"></label>
       <label class="f">Чем вы лучше конкурентов<small>Только реальные факты: сроки, гарантии, опыт, цены, акции. Ничего не придумывайте, в рекламу пойдёт именно это.</small><textarea data-k="business.usp"></textarea></label>
       <label class="f">Цены<small>Примерные цены или «от»</small><input data-k="business.prices"></label>
+      <div class="g2">
+        <label class="f">Кто у вас покупает<select data-k="business.model"><option value="">Выберите</option><option>Частные клиенты (B2C)</option><option>Компании (B2B)</option><option>И те, и другие</option></select></label>
+        <label class="f">Как вы работаете с клиентом<select data-k="business.format"><option value="">Выберите</option><option>Клиент приходит ко мне</option><option>Я выезжаю к клиенту</option><option>Онлайн или дистанционно</option><option>Доставка товаров</option><option>Интернет-магазин</option></select></label>
+      </div>
     </section>
 
     <section class="step" data-title="Клиенты">
@@ -102,6 +124,10 @@ footer{padding:0 0 40px;color:var(--mut);font-size:13px}
       <label class="f">Кто ваш типичный клиент<small>Возраст, пол, чем занимается, какая ситуация</small><textarea data-k="audience.who"></textarea></label>
       <label class="f">Почему обращаются: какая проблема или желание<textarea data-k="audience.pains"></textarea></label>
       <label class="f">Что сомневаются или возражают перед покупкой<textarea data-k="audience.objections"></textarea></label>
+      <div class="g2">
+        <label class="f">Как быстро клиент решает купить<select data-k="audience.decision"><option value="">Выберите</option><option>Сразу, в тот же день</option><option>За несколько дней</option><option>За недели</option><option>За месяцы</option></select></label>
+        <label class="f">Ищут ли люди вашу услугу в Яндексе<small>Если не знаете, оставьте пустым</small><select data-k="audience.search"><option value="">Не знаю</option><option>Да, ищут</option><option>Скорее нет, спрос нужно создавать</option></select></label>
+      </div>
       <label class="f">Кого вы НЕ хотите видеть<small>Например: «не делаем ремонт ниже 50 000 ₽», «не работаем с юрлицами», «только Москва»</small><textarea data-k="audience.exclude"></textarea></label>
     </section>
 
@@ -123,6 +149,7 @@ footer{padding:0 0 40px;color:var(--mut);font-size:13px}
         <label class="f">Когда нужно запустить<select data-k="goals.start"><option>Как можно скорее</option><option>В течение 2 недель</option><option>В течение месяца</option><option>Пока изучаю</option></select></label>
       </div>
       <label class="f">Сезонность и пики спроса<input data-k="goals.seasonality" placeholder="Например: пик весной и осенью"></label>
+      <label class="f">Как клиентам удобнее с вами связаться<select data-k="goals.contact"><option value="">Выберите</option><option>Позвонить</option><option>Оставить заявку на сайте</option><option>Написать в мессенджер</option><option>Прийти в точку</option></select></label>
     </section>
 
     <section class="step" data-title="Реклама">
@@ -148,13 +175,17 @@ footer{padding:0 0 40px;color:var(--mut);font-size:13px}
       </div>
       <label class="f">Логин Яндекса от кабинета<small>Только логин. Пароль не присылайте. Доступ откроем через официальное приглашение.</small><input data-k="tech.login"></label>
       <label class="f">Куда приходят заявки<small>CRM, почта, телефон, коллтрекинг, мессенджер</small><input data-k="tech.crm"></label>
+      <div class="g2">
+        <label class="f">Какой у вас сайт<select data-k="tech.siteType"><option value="">Выберите</option><option>Лендинг (одна страница)</option><option>Многостраничный сайт</option><option>Интернет-магазин</option><option>Квиз или калькулятор</option><option>Сайта нет</option></select></label>
+        <label class="f">Сообщество ВКонтакте или канал в Telegram<small>Ссылка, если есть</small><input data-k="tech.vk"></label>
+      </div>
       <label class="f">Что ещё важно знать<textarea data-k="extra.comment"></textarea></label>
       <label class="chk"><input type="checkbox" id="agree"> <span>Согласен на обработку персональных данных для подготовки предложения по рекламе</span></label>
       <div id="tsBox" style="margin-bottom:10px"></div>
     </section>
 
     <section class="step" id="okStep">
-      <div class="done"><div class="ic">✅</div><h2>Бриф получен</h2>
+      <div class="done"><div class="ic">✓</div><h2>Бриф получен</h2>
         <p class="lead" style="margin:10px 0 20px">Спасибо! Изучу ответы и напишу вам в выбранный мессенджер в течение рабочего дня.</p>
         <button type="button" class="btn ghost" id="dl">Скачать копию ответов</button></div>
     </section>
@@ -170,15 +201,13 @@ footer{padding:0 0 40px;color:var(--mut);font-size:13px}
 
 <script>
 (function(){
-  // Адрес вашего Cloudflare Worker, который принимает брифы (см. brief-worker.js)
   var ENDPOINT = 'https://brief.all-bersenev.workers.dev';
-  var SITEKEY  = '0x4AAAAAAF5j7C1SC3PSRb9h'; // Site key виджета Turnstile «brief»
+  var SITEKEY  = '0x4AAAAAAAF5j7C1SC3PSRb9h'; 
   var GEO = ['Москва и область','Санкт-Петербург','Казань','Екатеринбург','Новосибирск','Чебоксары','Нижний Новгород','Самара','Уфа','Краснодар','Ростов-на-Дону','Пермь','Воронеж','Челябинск','Омск','Красноярск','Вся Россия','Другой регион'];
   var steps = [].slice.call(document.querySelectorAll('.step:not(#okStep)')), cur = 0, tsToken = '', tsId = null, sending = false, KEY = 'brief_draft_v1';
   var $ = function(id){ return document.getElementById(id); };
   var geo = $('geo'); GEO.forEach(function(g){ var o = document.createElement('option'); o.textContent = g; geo.appendChild(o); });
 
-  // Персональные ссылки: ?name=Иван&company=Ромашка&ref=avito
   var q = new URLSearchParams(location.search), pre = { 'client.name': q.get('name'), 'client.company': q.get('company') };
   var ref = q.get('ref') || '';
 
