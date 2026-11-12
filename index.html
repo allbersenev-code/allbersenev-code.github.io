@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -337,6 +338,7 @@
             <div id="step3" class="step">
                 <p class="mb-4 opacity-60 text-sm">Куда прислать расчет и стратегию?</p>
                 <input type="text" id="qPhone" class="b-input" placeholder="Ваш Telegram или номер">
+                <div id="tsBox" style="margin: 12px 0;"></div>
                 <div class="flex gap-4 mt-2">
                     <button class="b-btn" onclick="nextStep(2)">Назад</button>
                     <button class="b-btn primary" onclick="finishQuiz()">Отправить</button>
@@ -375,33 +377,109 @@
             }
         });
 
-        function openQuiz() {
-            document.getElementById('quizModal').classList.add('active');
-            document.body.style.overflow = 'hidden'; 
-            resetQuiz();
-        }
-        function closeQuiz() {
-            document.getElementById('quizModal').classList.remove('active');
-            document.body.style.overflow = ''; 
-        }
-        function closeOutside(e) { if (e.target.id === 'quizModal') closeQuiz(); }
-        function resetQuiz() {
-            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-            document.getElementById('step1').classList.add('active');
-            document.getElementById('qTitle').innerText = 'Шаг 1: Ваша Ниша';
-        }
-        function nextStep(step) {
-            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-            document.getElementById('step' + step).classList.add('active');
-            if(step === 1) document.getElementById('qTitle').innerText = 'Шаг 1: Ваша Ниша';
-            if(step === 2) document.getElementById('qTitle').innerText = 'Шаг 2: Бюджет';
-            if(step === 3) document.getElementById('qTitle').innerText = 'Шаг 3: Контакты';
-        }
-        function finishQuiz() {
-            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-            document.getElementById('step4').classList.add('active');
-            document.getElementById('qTitle').innerText = '';
-        }
+        // Защита формы от ботов (Cloudflare Turnstile)
+window.TS_SITEKEY = '0x4AAAAAAFyXR_cYbvHBowU7'; 
+window.tsToken = '';
+window.tsWidgetId = null;
+window.tsEnabled = function() { return window.TS_SITEKEY && window.TS_SITEKEY.indexOf('ВАШ') === -1; };
+
+window.renderTurnstile = function() {
+    if (!window.tsEnabled() || window.tsWidgetId !== null) return;
+    if (typeof turnstile === 'undefined') { setTimeout(window.renderTurnstile, 400); return; }
+    window.tsWidgetId = turnstile.render('#tsBox', {
+        sitekey: window.TS_SITEKEY,
+        theme: 'dark',
+        callback: function(token) { window.tsToken = token; },
+        'expired-callback': function() { window.tsToken = ''; },
+        'error-callback': function() { window.tsToken = ''; }
+    });
+};
+
+function openQuiz() {
+    document.getElementById('quizModal').classList.add('active');
+    document.body.style.overflow = 'hidden'; 
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('qError').style.display = 'none';
+}
+
+function closeQuiz() {
+    document.getElementById('quizModal').classList.remove('active');
+    document.body.style.overflow = ''; 
+}
+
+function closeOutside(e) { if (e.target.id === 'quizModal') closeQuiz(); }
+
+function nextStep(step) {
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+    document.getElementById('step' + step).classList.add('active');
+    if (step === 3) {
+        window.renderTurnstile(); // Вызываем капчу на последнем шаге
+    }
+}
+
+// Оригинальная функция отправки на Worker
+function finishQuiz() {
+    var LEAD_ENDPOINT = 'https://lead.all-bersenev.workers.dev'; 
+    var gotcha = document.getElementById('qGotcha').value;
+    if(gotcha !== "") return; 
+
+    var errEl = document.getElementById('qError');
+    var btn = document.getElementById('submitBtn');
+    
+    var niche = document.getElementById('qNiche').value || 'Не выбрано';
+    var budget = document.getElementById('qBudget').value || 'Не выбрано';
+    var phone = document.getElementById('qPhone').value;
+
+    if (!phone || phone.length < 5) {
+        errEl.textContent = 'Пожалуйста, введите корректный контакт.';
+        errEl.style.display = 'block';
+        return;
+    }
+
+    if (window.tsEnabled() && !window.tsToken) {
+        errEl.textContent = 'Подтвердите, что вы не робот (проверка выше).';
+        errEl.style.display = 'block';
+        return;
+    }
+
+    if (window.sendingLead) return;
+    errEl.style.display = 'none';
+    window.sendingLead = true;
+    btn.disabled = true;
+    btn.textContent = 'ОТПРАВКА...';
+
+    fetch(LEAD_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            niche: niche,
+            budget: budget,
+            name: 'С сайта',
+            phone: phone,
+            messenger: 'Не выбран',
+            utm: '',
+            ts: window.tsToken
+        })
+    }).then(function(r) {
+        window.sendingLead = false;
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.getElementById('step4').classList.add('active');
+        
+        try { if (typeof ym === 'function') ym(99999999, 'reachGoal', 'quiz_lead'); } catch(e){}
+    }).catch(function(e) {
+        console.error(e);
+        window.sendingLead = false;
+        window.tsToken = '';
+        try { if (window.tsWidgetId !== null) turnstile.reset(window.tsWidgetId); } catch(x){}
+        errEl.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз через минуту.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Запустить систему';
+    });
+}
     </script>
 </body>
 </html>
